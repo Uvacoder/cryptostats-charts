@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { encodeAsQueryString } from '../utils';
 
 import Card from './Card';
 import Spinner from './Spinner';
@@ -23,7 +24,7 @@ const Main = () => {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${URL}${new URLSearchParams({
+        `${URL}${encodeAsQueryString({
           ...params,
           page,
         })}`
@@ -41,7 +42,7 @@ const Main = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch(`${URL}${new URLSearchParams(params)}`);
+        const res = await fetch(`${URL}${encodeAsQueryString(params)}`);
         const data = await res.json();
         setInitialLoad(false);
         setCryptos(data);
